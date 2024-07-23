@@ -1,60 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat com o Chef de Cozinha AI</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            color: #4CAF50;
-        }
-        #inputArea {
-            margin-top: 20px;
-        }
-        #outputArea {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            background-color: #fff;
-        }
-        #sendMessage {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        #sendMessage:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
+
 <body>
 
     <h1>Chat com o Chef de Cozinha AI</h1>
-    <div id="inputArea">
-        <input type="text" id="userInput" placeholder="Digite sua pergunta..." />
-        <button id="sendMessage">Enviar</button>
-    </div>
-    <div id="outputArea"></div>
+    <div id="blocoFora">
+        <div id="outputArea1"></div>
+        <div id="outputArea2"></div>
 
+
+        <div id="inputArea">
+            <input type="text" id="userInput" placeholder="Digite sua pergunta..." />
+            <button id="sendMessage">Enviar</button>
+        </div>
+    </div>
     <script>
-        document.getElementById('sendMessage').addEventListener('click', async function() {
+        document.getElementById('sendMessage').addEventListener('click', async function () {
             const userInput = document.getElementById('userInput').value;
-            const outputArea = document.getElementById('outputArea');
+            const outputArea1 = document.getElementById('outputArea1');
+            const outputArea2 = document.getElementById('outputArea2');
 
             if (userInput) {
                 const userMessageDiv = document.createElement('div');
                 userMessageDiv.textContent = `Você: ${userInput}`;
-                outputArea.appendChild(userMessageDiv);
+                outputArea1.appendChild(userMessageDiv);
 
                 try {
                     const response = await fetch('/chat', {
@@ -68,12 +44,12 @@
                     const data = await response.json();
                     const aiMessageDiv = document.createElement('div');
                     aiMessageDiv.textContent = `Chef de Cozinha AI: ${data.response}`;
-                    outputArea.appendChild(aiMessageDiv);
+                    outputArea2.appendChild(aiMessageDiv);
                 } catch (error) {
                     console.error('Error:', error);
                     const errorDiv = document.createElement('div');
                     errorDiv.textContent = 'Erro ao obter resposta do Chef de Cozinha AI.';
-                    outputArea.appendChild(errorDiv);
+                    outputArea2.appendChild(errorDiv);
                 }
 
                 document.getElementById('userInput').value = '';
@@ -82,4 +58,5 @@
     </script>
 
 </body>
+
 </html>
